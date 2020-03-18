@@ -17,7 +17,7 @@ dynamodb = boto3.resource('dynamodb', region_name='us-east-2', endpoint_url="htt
 
 table = dynamodb.Table('Employees')
 
-emp_id = 1
+emp_id = str(1)
 types = "manager"
 
 response = table.update_item(
@@ -27,8 +27,8 @@ response = table.update_item(
     },
     UpdateExpression="set experience=:e, default_salary=:d",
     ExpressionAttributeValues={
-        ':e': decimal.Decimal(2.0),
-        ':d': decimal.Decimal(2000),
+        ':e': str(2),
+        ':d': str(2000),
         
     },
     ReturnValues="UPDATED_NEW"

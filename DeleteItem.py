@@ -19,7 +19,7 @@ dynamodb = boto3.resource('dynamodb', region_name='us-east-2', endpoint_url="htt
 table = dynamodb.Table('Employees')
 
 types = "designer"
-emp_id = 4
+emp_id = str(4)
 
 print("Attempting a conditional delete...")
 
@@ -28,10 +28,6 @@ try:
         Key={
             'types': types,
             'emp_id': emp_id
-        },
-        ConditionExpression="default_salary <= :val",
-        ExpressionAttributeValues= {
-            ":val": decimal.Decimal(2500)
         }
     )
 except ClientError as e:

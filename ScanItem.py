@@ -20,21 +20,21 @@ from boto3.dynamodb.conditions import Key, Attr
 #                return int(o)
 #        return super(DecimalEncoder, self).default(o)
 # Helper class to convert a DynamoDB item to YAML.
-class DecimalEncoder(yaml.YAMLObject):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
-                return float(o)
-            else:
-                return int(o)
-        return super(DecimalEncoder, self).default(o)
+#class DecimalEncoder(yaml.YAMLObject):
+#    def default(self, o):
+#        if isinstance(o, decimal.Decimal):
+#            if o % 1 > 0:
+#                return float(o)
+#            else:
+#                return int(o)
+#        return super(DecimalEncoder, self).default(o)
 
 dynamodb = boto3.resource('dynamodb', region_name='us-east-2', endpoint_url="http://localhost:8000")
 
 table = dynamodb.Table('Employees')
 
-fe = Key('emp_id').between(1, 4)
-pe = "types, first_name, second_name, default_salary, experience "
+fe = Key('emp_id').between(str(1), str(4))
+pe = "emp_id, types, first_name, second_name, default_salary, experience "
 # Expression Attribute Names for Projection Expression only.
 esk = None
 
@@ -49,7 +49,7 @@ for i in response['Items']:
     #print(json.dumps(i, cls=DecimalEncoder))
     #print(yaml.dump(DecimalEncoder(i)))
     #print (dump(i))
-    #print(i)
+    print(yaml.dump(i))
 
 while 'LastEvaluatedKey' in response:
     response = table.scan(
@@ -62,5 +62,5 @@ while 'LastEvaluatedKey' in response:
         
         #print(json.dumps(i, cls=DecimalEncoder))
         #print(yaml.dump(DecimalEncoder(i)))
-        #print(i)
+        print(yaml.dump(i))
         #print (dump(i))

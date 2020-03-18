@@ -23,7 +23,7 @@ table = dynamodb.create_table(
         },
         {
             'AttributeName': 'emp_id',
-            'AttributeType': 'N'
+            'AttributeType': 'S'
         },
 
     ],

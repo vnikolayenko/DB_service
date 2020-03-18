@@ -8,14 +8,14 @@ dynamodb = boto3.resource('dynamodb', region_name='us-east-2', endpoint_url="htt
 table = dynamodb.Table('Employees')
 
 with open("LoadData.json") as json_file:
-    employees = json.load(json_file, parse_float = decimal.Decimal)
+    employees = json.load(json_file)
     for employee in employees:
-        emp_id = int(employee['emp_id'])
+        emp_id = employee['emp_id']
         types = employee['types']
         first_name = employee['first_name']
         second_name = employee['second_name']
-        default_salary = int(employee['default_salary'])
-        experience = int(employee['experience'])
+        default_salary = employee['default_salary']
+        experience = employee['experience']
 
         print("Adding employees:", types, emp_id)
 
