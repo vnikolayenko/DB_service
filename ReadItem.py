@@ -3,18 +3,24 @@ import boto3
 import json
 import decimal
 import yaml
+from yaml import load, dump
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
 # Helper class to convert a DynamoDB item to JSON.
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
-                return float(o)
-            else:
-                return int(o)
-        return super(DecimalEncoder, self).default(o)
+#class DecimalEncoder(json.JSONEncoder):
+#    def default(self, o):
+#        if isinstance(o, decimal.Decimal):
+#            if o % 1 > 0:
+#                return float(o)
+#            else:
+#                return int(o)
+#        return super(DecimalEncoder, self).default(o)
 
 dynamodb = boto3.resource("dynamodb", region_name='us-east-2', endpoint_url="http://localhost:8000")
 
@@ -38,4 +44,5 @@ else:
     item = response['Item']#Python Dictionary
     print("GetItem succeeded:")
     #print(json.dumps(item, indent=4, cls=DecimalEncoder))#Other converter method YAML
-    print(yaml.dump(item, indent=4))
+    #print(yaml.dump(item, indent=4))
+    print(item)
