@@ -45,11 +45,7 @@ response = table.scan(
     )
 
 for i in response['Items']:
-    if isinstance(i, decimal.Decimal):
-            if i % 1 > 0:
-                print (float(i))
-            else:
-                print (int(i))
+    
     #print(json.dumps(i, cls=DecimalEncoder))
     #print(yaml.dump(DecimalEncoder(i)))
     #print (dump(i))
@@ -63,11 +59,7 @@ while 'LastEvaluatedKey' in response:
         )
 
     for i in response['Items']:
-        if isinstance(i, decimal.Decimal):
-            if i % 1 > 0:
-                print (float(i))
-            else:
-                print (int(i))
+        
         #print(json.dumps(i, cls=DecimalEncoder))
         #print(yaml.dump(DecimalEncoder(i)))
         #print(i)
